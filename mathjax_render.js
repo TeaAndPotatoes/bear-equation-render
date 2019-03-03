@@ -1,16 +1,16 @@
 window.MathJax = {
-    "fast-preview": {
-               disabled: true
-    },
-    AuthorInit: function() {
-        MathJax.Hub.Register.StartupHook('End', function() {
-            MathJax.Hub.processSectionDelay = 0
-            var demoSource = document.getElementById('math-input')
-            var demoRendering = document.getElementById('render-output')
-            var math = MathJax.Hub.getAllJax('render-output')[0]
-            demoSource.addEventListener('input', function() {
-                MathJax.Hub.Queue(['Text', math, demoSource.value])
-            })
-        })
-    }
-}
+  'fast-preview': {
+    disabled: true,
+  },
+  AuthorInit: () => {
+    MathJax.Hub.Register.StartupHook('End', () => {
+      MathJax.Hub.processSectionDelay = 0;
+      const demoSource = document.getElementById('math-input');
+      const demoRendering = document.getElementById('render-output');
+      const math = MathJax.Hub.getAllJax('render-output')[0];
+      demoSource.addEventListener('input', () => {
+        MathJax.Hub.Queue(['Text', math, demoSource.value]);
+      });
+    });
+  },
+};

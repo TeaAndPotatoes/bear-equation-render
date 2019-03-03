@@ -5,14 +5,20 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "build": "electron-packager . 'Bear Math' --platform=darwin --arch=x64 --icon=Icon.icns",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eric Pfister",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^2.0.8"
+    "eslint": "^5.15.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "electron-packager": "^13.1.0"
   },
   "dependencies": {
-    "mathjax-node": "^2.1.1"
+    "electron": "^4.0.6",
+    "mathjax-node": "^2.1.1",
+    "menubar": "^5.2.3"
   }
 }
