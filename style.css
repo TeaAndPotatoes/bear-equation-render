@@ -1,22 +1,25 @@
 #math-input {
     position: absolute;
+    display: inline-block;
     top:0;
     bottom:50%;
     right:0;
     left:0;
-    height:50%;
+    padding-top: 15%;
     width: 100%;
     font-size: 18px;
     scroll-behavior: initial;
+    vertical-align: middle;
     text-align: center;
-    
 }
 #render-output {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
     top: 50vh;
-    max-height: 37vh;
+    max-height: 50vh;
+    height: 32vh;
 }
 textarea {
     resize: none;
@@ -25,27 +28,21 @@ textarea {
 
 #export-button {
     position: absolute;
-    bottom:5%;
+    bottom: 5%;
     height: 7%;
-    left:5%;
+    left: 5%;
 }
 #error-state-display {
     position:absolute;
     visibility: hidden;
-    bottom:8%;
-    height:5%;
+    bottom: 8%;
+    height: 5%;
     right: 5%;
     color:red;
 }
 #note-id {
     position: absolute;
-    bottom:5%;
-    height:5%;
-    right:5%;
-}
-#note-id-title {
-    position: absolute;
-    bottom: 1%;
+    bottom: 5%;
     height: 5%;
-    right:41%
+    right: 5%;
 }
