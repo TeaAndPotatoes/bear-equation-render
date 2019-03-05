@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . 'Bear Math' --platform=darwin --arch=x64 --icon=Icon.icns",
+    "build": "electron-packager . 'Bear Math' --overwrite --platform=darwin --arch=x64 --icon=Icon.icns",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eric Pfister",

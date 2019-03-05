@@ -1,4 +1,4 @@
-const { BrowserWindow, ipcMain } = require('electron');
+const { BrowserWindow, Menu, ipcMain, ipcRenderer } = require('electron');
 const menubar = require('menubar');
 const mjAPI = require('mathjax-node');
 
@@ -10,7 +10,32 @@ const mb = menubar({
 });
 
 mb.on('ready', () => {
-  console.log('App is ready');
+  const template = [{
+    label: 'Application',
+    submenu: [
+      { label: 'About Application', selector: 'orderFrontStandardAboutPanel:' },
+      { type: 'separator' },
+      { label: 'Quit', accelerator: 'Command+Q', click: () => mb.app.quit() },
+    ],
+  }, {
+    label: 'Edit',
+    submenu: [
+      { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
+      { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
+      { type: 'separator' },
+      { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+      { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+      { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+      { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' }
+    ],
+  },
+  ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+});
+
+mb.on('after-hide', () => {
+  mb.app.hide();
 });
 
 // mb.on('after-create-window', () => {
@@ -24,24 +49,27 @@ let errorTimer = null;
 function startErrorState() {
   if (isErroring) return;
 
+  isErroring = true;
+  ipcRenderer.send('error');
   errorTimer = setInterval(() => {
     mjAPI.start();
   }, 500);
 }
 function stopErrorState() {
   if (!isErroring || errorTimer == null) return;
+
+  isErroring = false;
   clearInterval(errorTimer);
 }
 
 ipcMain.on('exportClicked', (event, arg) => {
   const win2 = new BrowserWindow({
-    width: 0, height: 0, transparent: false, frame: true,
+    width: 0, height: 0, transparent: true, frame: false, show: false,
   });
 
   win2.loadURL(arg);
   setTimeout(() => {
     win2.close();
-    mb.showWindow();
   }, 500);
 });
 

@@ -1,10 +1,5 @@
 const { ipcRenderer } = require('electron');
 
-function onTextInput() {
-  const mathText = document.getElementById('math-input').value;
-  const mathRendered = ipcRenderer.send('textChanged', mathText);
-}
-
 function disableTyping(key) {
   if (key.keyCode >= 37 && key.keyCode <= 40) {
     return; // arrow keys
@@ -28,13 +23,23 @@ ipcRenderer.on('textChangedReply', (event, data) => {
   document.getElementById('math-input').removeEventListener('keydown', disableTyping);
 });
 
-function onExportButtonClicked() {
-  html2canvas(document.getElementById('render-output')).then((canvas) => {
-    const { length } = 'data:image/png;base64,';
-    const id = document.getElementById('note-id').value;
-    if (id === '' || id === ' ') return;
-    const data = encodeURIComponent(canvas.toDataURL('image/png').substr(length));
-    const url = `bear://x-callback-url/add-file?filename=eq.png&id=${id}&mode=append&file=${data}&show_window=no`;
-    ipcRenderer.send('exportClicked', url);
+window.onload = () => {
+  const mathInput = document.getElementById('math-input');
+
+  mathInput.addEventListener('input', () => {
+    const mathText = mathInput.value;
+    ipcRenderer.send('textChanged', mathText);
   });
-}
+
+  document.getElementById('export-button').addEventListener('click', () => {
+    html2canvas(document.getElementById('render-output')).then((canvas) => {
+      const { length } = 'data:image/png;base64,';
+      const id = document.getElementById('note-id').value;
+      if (id.trim() === '') return;
+
+      const data = encodeURIComponent(canvas.toDataURL('image/png').substr(length));
+      const url = `bear://x-callback-url/add-file?filename=eq.png&id=${id}&mode=append&file=${data}&show_window=no`;
+      ipcRenderer.send('exportClicked', url);
+    });
+  });
+};
