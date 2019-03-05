@@ -1,4 +1,4 @@
-const { ipcRenderer, remote } = require('electron');
+const { ipcRenderer } = require('electron');
 
 function onTextInput() {
   const mathText = document.getElementById('math-input').value;

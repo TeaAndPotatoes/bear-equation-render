@@ -13,6 +13,12 @@ mb.on('ready', () => {
   console.log('App is ready');
 });
 
+// mb.on('after-create-window', () => {
+//   mb.window.openDevTools({
+//     mode: 'detach',
+//   });
+// });
+
 let isErroring = false;
 let errorTimer = null;
 function startErrorState() {
