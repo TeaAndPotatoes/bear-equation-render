@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron');
+const html2canvas = require('html2canvas');
 
 function disableTyping(key) {
   if (key.keyCode >= 37 && key.keyCode <= 40) {
@@ -10,12 +11,12 @@ function disableTyping(key) {
   key.preventDefault();
 }
 
-ipcRenderer.on('error', (event, data) => {
+ipcRenderer.on('error', (_event, _data) => {
   document.getElementById('error-state-display').style.visibility = 'visible';
   document.getElementById('math-input').addEventListener('keydown', disableTyping);
 });
 
-ipcRenderer.on('textChangedReply', (event, data) => {
+ipcRenderer.on('textChangedReply', (_event, data) => {
   const div = document.getElementById('render-output');
   const styledSVG = `<svg id='svg'${data.svg.substring(4)}`;
   div.innerHTML = styledSVG;

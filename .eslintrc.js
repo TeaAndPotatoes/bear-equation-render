@@ -14,5 +14,7 @@ module.exports = {
         "ecmaVersion": 2018
     },
     "rules": {
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
     }
 };

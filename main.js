@@ -1,7 +1,28 @@
-const { BrowserWindow, Menu, ipcMain, ipcRenderer } = require('electron');
+/* eslint-disable no-undef */
+const {
+  BrowserWindow, Menu, ipcMain, ipcRenderer,
+} = require('electron');
 const menubar = require('menubar');
 const mjAPI = require('mathjax-node');
 
+
+mjAPI.config({
+  MathJax: {
+    'fast-preview': {
+      disabled: true,
+    },
+    AuthorInit: () => {
+      MathJax.Hub.Register.StartupHook('End', () => {
+        MathJax.Hub.processSectionDelay = 0;
+        const demoSource = document.getElementById('math-input');
+        const math = MathJax.Hub.getAllJax('render-output')[0];
+        demoSource.addEventListener('input', () => {
+          MathJax.Hub.Queue(['Text', math, demoSource.value]);
+        });
+      });
+    },
+  },
+});
 mjAPI.start();
 
 const mb = menubar({
@@ -64,7 +85,17 @@ function stopErrorState() {
 
 ipcMain.on('exportClicked', (event, arg) => {
   const win2 = new BrowserWindow({
-    width: 0, height: 0, transparent: true, frame: false, show: false,
+    width: 0,
+    height: 0,
+    transparent: true,
+    frame: false,
+    show: false,
+
+    webPreferences: {
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false,
+      contextIsolation: true,
+    },
   });
 
   win2.loadURL(arg);

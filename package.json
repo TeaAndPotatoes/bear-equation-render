@@ -11,13 +11,14 @@
   "author": "Eric Pfister",
   "license": "MIT",
   "devDependencies": {
+    "electron": "^4.0.7",
     "electron-packager": "^13.1.1",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0"
   },
   "dependencies": {
-    "electron": "^4.0.7",
+    "html2canvas": "^1.0.0-alpha.12",
     "mathjax-node": "^2.1.1",
     "menubar": "^5.2.3"
   }
