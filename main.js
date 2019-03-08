@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
-const {
-  BrowserWindow, Menu, ipcMain, ipcRenderer,
-} = require('electron');
+const { BrowserWindow, Menu, ipcMain } = require('electron');
 const menubar = require('menubar');
 const mjAPI = require('mathjax-node');
 
@@ -71,7 +69,7 @@ function startErrorState() {
   if (isErroring) return;
 
   isErroring = true;
-  ipcRenderer.send('error');
+  mb.window.webContents.send('error');
   errorTimer = setInterval(() => {
     mjAPI.start();
   }, 500);
