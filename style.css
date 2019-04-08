@@ -1,9 +1,29 @@
+[data-theme^="light"] {
+    --main-color: black;
+    --background-color: white;
+    --divider-color: #D5D5D5;
+    --interact-background-color: white;
+}
+
+[data-theme^="dark"] {
+    --main-color: #EEEEEE;
+    --background-color: #3A3A3C;
+    --divider-color: #4C4C4E;
+    --interact-background-color: #6C6B6C;
+}
+
+body, #math-input {
+    background-color: var(--background-color);
+    color: var(--main-color);
+}
+
 #math-input {
     position: absolute;
     display: inline-block;
     border-left: none;
     border-top: none;
     border-right: none;
+    border-color: var(--divider-color);
     top: 0;
     bottom: 50%;
     right: 0;
@@ -48,4 +68,25 @@ textarea {
     bottom: 5%;
     height: 5%;
     right: 5%;
+}
+
+#note-id, #export-button {
+    background-color: var(--interact-background-color);
+    color: var(--main-color);
+}
+
+[data-theme^="dark"] #note-id, [data-theme^="dark"] #export-button {
+    border-radius: 3px;
+    border: none;
+}
+
+[data-theme^="dark"] #note-id {
+    padding: 3px 3px;
+}
+
+[data-theme^="dark"] #export-button {
+    padding-top: 2px;
+    padding-bottom: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
 }

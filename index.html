@@ -3,6 +3,22 @@
 
 <head>
     <script src="renderer.js"></script>
+
+    <script>
+        window.__setTheme = () => {
+            const osTheme = localStorage.os_theme;
+            const defaultTheme = 'light';
+
+            console.log(osTheme);
+            
+            document.documentElement.setAttribute(
+                'data-theme',
+                osTheme || defaultTheme,
+            );
+        }
+
+        __setTheme();
+    </script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 

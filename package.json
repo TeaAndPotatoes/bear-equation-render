@@ -5,11 +5,15 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . 'Bear Math' --overwrite --platform=darwin --arch=x64 --icon=Icon.icns",
+    "package-mac": "electron-packager . 'Bear Math' --overwrite --platform=darwin --arch=x64 --icon=Icon.icns --out=./build/ --darwinDarkModeSupport=true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Eric Pfister",
+  "author": "Brendan Doney",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TeaAndPotatoes/bear-equation-render"
+  },
   "devDependencies": {
     "electron": "^4.0.7",
     "electron-packager": "^13.1.1",

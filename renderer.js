@@ -1,5 +1,27 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, remote } = require('electron');
 const html2canvas = require('html2canvas');
+
+// This block should be moved to a preload script, once menubar allows
+// you to set one to prevent flashing white before setting theme
+if (process.platform === 'darwin') {
+  const { systemPreferences } = remote;
+  const setOSTheme = () => {
+    const osTheme = systemPreferences.isDarkMode() ? 'dark' : 'light';
+    window.localStorage.os_theme = osTheme;
+
+    if ('__setTheme' in window) {
+      // eslint-disable-next-line no-underscore-dangle
+      window.__setTheme();
+    }
+  };
+
+  systemPreferences.subscribeNotification(
+    'AppleInterfaceThemeChangedNotification',
+    setOSTheme,
+  );
+
+  setOSTheme();
+}
 
 function disableTyping(key) {
   if (key.keyCode >= 37 && key.keyCode <= 40) {
